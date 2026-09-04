@@ -5,7 +5,6 @@
   "type": "module",
   "description": "Convert AI math responses into Word-ingestable MathML HTML and native OMML DOCX output.",
   "scripts": {
-    "postinstall": "npm install --prefix src/conversion",
     "start": "node src/word-delivery/local-server.js",
     "convert": "node src/cli.mjs",
     "fixture": "node src/cli.mjs --input samples/sample-ai-response.md --out dist/sample",
@@ -17,5 +16,8 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "mathjax-full": "^3.2.2"
   }
 }
