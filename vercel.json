@@ -1,16 +1,9 @@
 {
+  "outputDirectory": "src/ui",
   "rewrites": [
     {
       "source": "/",
-      "destination": "/src/ui/index.html"
-    },
-    {
-      "source": "/app.js",
-      "destination": "/src/ui/app.js"
-    },
-    {
-      "source": "/styles.css",
-      "destination": "/src/ui/styles.css"
+      "destination": "/index.html"
     },
     {
       "source": "/word-delivery/:path*",
