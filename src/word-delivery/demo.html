@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Word Delivery Prototype — Clipboard MathML Demo</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { font-size: 1.25rem; }
+    button { margin: 0.25rem 0.25rem 0.25rem 0; padding: 0.5rem 0.75rem; cursor: pointer; }
+    pre { background: #f4f4f4; padding: 0.75rem; overflow: auto; font-size: 0.8rem; }
+    .status { margin-top: 1rem; padding: 0.5rem; border-radius: 4px; background: #eef6ff; }
+    .preview { border: 1px solid #ccc; padding: 1rem; margin: 1rem 0; }
+    label { display: block; margin-top: 1rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Clipboard MathML → Word Paste Prototype</h1>
+  <p>
+    Copy a fixture below, then paste into <strong>desktop Word</strong> (Ctrl+V).
+    Record whether the result is a native editable equation, plain text, or garbage.
+  </p>
+
+  <label>Fixture</label>
+  <select id="fixture">
+    <option value="inlineFraction">Inline fraction (mixed prose)</option>
+    <option value="displayIntegral">Display integral</option>
+    <option value="matrix">2×2 matrix</option>
+  </select>
+
+  <label>Clipboard mode</label>
+  <select id="mode">
+    <option value="mathml-html">② mathml-html (recommended)</option>
+    <option value="mathml-text">③ mathml-text (plain MathML only)</option>
+    <option value="cf-html">CF_HTML wrapped mathml-html</option>
+  </select>
+
+  <div>
+    <button id="copy">Copy to clipboard</button>
+    <button id="preview">Preview HTML payload</button>
+  </div>
+
+  <div class="preview" id="render-preview" aria-live="polite"></div>
+  <pre id="payload-preview" hidden></pre>
+  <div class="status" id="status">Ready.</div>
+
+  <script type="module">
+    import {
+      SAMPLE_FIXTURES,
+      buildHtmlWithMathML,
+      buildPlainTextFallback,
+      copyMathMLToClipboard,
+      wrapCfHtml,
+    } from "./clipboard-mathml.js";
+
+    const fixtureSelect = document.getElementById("fixture");
+    const modeSelect = document.getElementById("mode");
+    const statusEl = document.getElementById("status");
+    const payloadPreview = document.getElementById("payload-preview");
+    const renderPreview = document.getElementById("render-preview");
+
+    function currentSegments() {
+      return SAMPLE_FIXTURES[fixtureSelect.value];
+    }
+
+    function renderMathPreview() {
+      const html = buildHtmlWithMathML(currentSegments());
+      const bodyMatch = html.match(/<body>([\s\S]*)<\/body>/);
+      renderPreview.innerHTML = bodyMatch ? bodyMatch[1] : html;
+    }
+
+    fixtureSelect.addEventListener("change", renderMathPreview);
+    renderMathPreview();
+
+    document.getElementById("preview").addEventListener("click", () => {
+      const html = buildHtmlWithMathML(currentSegments());
+      payloadPreview.hidden = false;
+      payloadPreview.textContent = html;
+      statusEl.textContent = "HTML payload shown below.";
+    });
+
+    document.getElementById("copy").addEventListener("click", async () => {
+      const mode = modeSelect.value;
+      const segments = currentSegments();
+
+      try {
+        if (mode === "mathml-text") {
+          const plain = buildPlainTextFallback(segments);
+          await navigator.clipboard.writeText(plain);
+          statusEl.textContent = "Copied plain MathML/LaTeX fallback. Paste into Word and record result.";
+          return;
+        }
+
+        const result = await copyMathMLToClipboard(segments, {
+          includeCfHtml: mode === "cf-html",
+        });
+        statusEl.textContent =
+          `Copied via ${result.method}. Paste into desktop Word (Ctrl+V) and check editability.`;
+      } catch (err) {
+        statusEl.textContent = `Copy failed: ${err.message}. Try serving this page over http://localhost (clipboard requires secure context + user gesture).`;
+      }
+    });
+  </script>
+</body>
+</html>

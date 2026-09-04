@@ -1,0 +1,12 @@
+{
+  "name": "ai-word-math-bridge-conversion",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "test": "node ../../tests/conversion/conversion.test.js",
+    "convert-fixtures": "node ../../tests/conversion/run-fixtures.js"
+  },
+  "dependencies": {
+    "mathjax-full": "^3.2.2"
+  }
+}

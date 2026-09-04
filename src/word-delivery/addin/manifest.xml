@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:type="TaskPaneApp">
+  <Id>ai-word-math-bridge-local</Id>
+  <Version>0.1.0.0</Version>
+  <ProviderName>AI Word Math Bridge</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="AI Word Math Bridge"/>
+  <Description DefaultValue="Insert converted AI math as native Word equations via OMML OOXML."/>
+  <IconUrl DefaultValue="http://localhost:4173/addin/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="http://localhost:4173/addin/assets/icon-64.png"/>
+  <SupportUrl DefaultValue="http://localhost:4173"/>
+  <AppDomains>
+    <AppDomain>http://localhost:4173</AppDomain>
+  </AppDomains>
+  <Hosts>
+    <Host Name="Document"/>
+  </Hosts>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="http://localhost:4173/addin/taskpane.html"/>
+  </DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="WordApi" MinVersion="1.1"/>
+    </Sets>
+  </Requirements>
+</OfficeApp>

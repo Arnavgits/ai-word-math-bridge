@@ -1,0 +1,9 @@
+{
+  "name": "ai-word-math-bridge-word-delivery",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "convert": "node generate-artifacts.js",
+    "serve": "node local-server.js"
+  }
+}

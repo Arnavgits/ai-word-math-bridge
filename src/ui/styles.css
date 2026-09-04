@@ -1,0 +1,121 @@
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  color: #1a1a1a;
+  background: #fafafa;
+}
+
+header h1 {
+  font-size: 1.4rem;
+  margin-bottom: 0.25rem;
+}
+
+header p, footer p {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.panel {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: ui-monospace, monospace;
+  font-size: 0.9rem;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.actions {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+button {
+  padding: 0.55rem 0.9rem;
+  border: 1px solid #888;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#convert {
+  background: #0066cc;
+  color: #fff;
+  border-color: #0066cc;
+}
+
+.status {
+  padding: 0.65rem 0.75rem;
+  border-radius: 4px;
+  background: #eef6ff;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.status.error {
+  background: #fff0f0;
+  color: #a00;
+}
+
+.status.success {
+  background: #eefaf0;
+  color: #065;
+}
+
+.errors {
+  background: #fff8e6;
+  border: 1px solid #e6c200;
+  border-radius: 4px;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.errors ul {
+  margin: 0.4rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.preview {
+  min-height: 4rem;
+  border: 1px dashed #ccc;
+  border-radius: 4px;
+  padding: 1rem;
+  background: #fefefe;
+}
+
+.preview math {
+  font-size: 1.1rem;
+}
+
+code {
+  font-family: ui-monospace, monospace;
+  font-size: 0.85em;
+  background: #f0f0f0;
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}

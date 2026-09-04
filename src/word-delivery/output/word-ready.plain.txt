@@ -1,0 +1,12 @@
+The quadratic formula is 
+$$x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}$$
+
+
+For inline math, Einstein's relation $E=mc^2$ is famous. Greek letters like $\alpha + \beta = \gamma$ appear often.
+
+Display matrices:
+
+$$\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$$
+
+
+Mixed prose with a fraction $\frac{a_{n+1}}{b^2}$ ends here.

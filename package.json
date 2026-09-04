@@ -1,0 +1,21 @@
+﻿{
+  "name": "ai-word-math-bridge",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Convert AI math responses into Word-ingestable MathML HTML and native OMML DOCX output.",
+  "scripts": {
+    "postinstall": "npm install --prefix src/conversion",
+    "start": "node src/word-delivery/local-server.js",
+    "convert": "node src/cli.mjs",
+    "fixture": "node src/cli.mjs --input samples/sample-ai-response.md --out dist/sample",
+    "convert:stdin": "node src/cli.mjs --stdin --out dist/from-stdin",
+    "test": "node --test tests/*.test.mjs && npm --prefix src/conversion test && node tests/source-extractors-smoke.mjs",
+    "convert-fixtures": "npm --prefix src/conversion run convert-fixtures",
+    "word-delivery": "npm --prefix src/word-delivery run convert -- --input sample-input.txt --out output",
+    "verify": "npm run test && npm run fixture && npm run convert-fixtures && npm run word-delivery"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

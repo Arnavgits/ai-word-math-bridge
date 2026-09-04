@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AI Word Math Bridge Output</title>
+  <style>
+    body { font-family: Cambria, "Times New Roman", serif; line-height: 1.45; max-width: 760px; margin: 40px auto; padding: 0 20px; }
+    .math-display { margin: 18px 0; text-align: center; }
+    .math-inline { display: inline-block; vertical-align: middle; }
+    .toolbar { display: flex; gap: 8px; margin-bottom: 20px; }
+    button { font: inherit; padding: 8px 12px; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button id="copy">Copy Rich HTML</button>
+    <button id="select">Select Content</button>
+  </div>
+  <main id="content">
+<p>﻿# Sample AI Math Response</p>
+<p>The marginal rate can be written inline as </p>
+<span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>μ</mi><mi>x</mi></msub><mo>=</mo><mfrac><msub><mi>p</mi><mi>y</mi></msub><msub><mi>p</mi><mi>x</mi></msub></mfrac><mo>−</mo><mn>6</mn></math></span>
+<p>, which is useful in the budget condition.</p>
+<p>For a display equation:</p>
+<p></p>
+<div class="math-display"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><msubsup><mi>x</mi><mn>1</mn><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>y</mi><mn>2</mn><mn>3</mn></msubsup><mo>=</mo><mfrac><mrow><mi>α</mi><mo>+</mo><mi>β</mi></mrow><mi>μ</mi></mfrac></math></div>
+<p></p>
+<p>A small matrix example is:</p>
+<p></p>
+<div class="math-display"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>[</mo><mtable columnspacing="1em" rowspacing="4pt"><mtr><mtd><mn>1</mn></mtd><mtd><mn>2</mn></mtd></mtr><mtr><mtd><mn>3</mn></mtd><mtd><mn>4</mn></mtd></mtr></mtable><mo>]</mo></mrow></math></div>
+<p><br></p>
+  </main>
+  <script>
+    const content = document.getElementById("content");
+    document.getElementById("select").addEventListener("click", () => {
+      const range = document.createRange();
+      range.selectNodeContents(content);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+    });
+    document.getElementById("copy").addEventListener("click", async () => {
+      const html = content.innerHTML;
+      if (navigator.clipboard && window.ClipboardItem) {
+        const blob = new Blob([html], { type: "text/html" });
+        await navigator.clipboard.write([new ClipboardItem({ "text/html": blob })]);
+        return;
+      }
+      const range = document.createRange();
+      range.selectNodeContents(content);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      document.execCommand("copy");
+    });
+  </script>
+</body>
+</html>

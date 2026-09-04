@@ -1,0 +1,24 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/src/ui/index.html"
+    },
+    {
+      "source": "/app.js",
+      "destination": "/src/ui/app.js"
+    },
+    {
+      "source": "/styles.css",
+      "destination": "/src/ui/styles.css"
+    },
+    {
+      "source": "/word-delivery/:path*",
+      "destination": "/src/word-delivery/:path*"
+    },
+    {
+      "source": "/addin/:path*",
+      "destination": "/src/word-delivery/addin/:path*"
+    }
+  ]
+}

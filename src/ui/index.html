@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AI Word Math Bridge</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header>
+    <h1>AI Word Math Bridge</h1>
+    <p>Paste an AI response with LaTeX math, convert, then copy into desktop Word.</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <label for="input">AI response text</label>
+      <textarea id="input" rows="10" placeholder="Example: The energy relation is $E=mc^2$ where $c$ is the speed of light."></textarea>
+      <div class="actions">
+        <button id="convert" type="button">Convert</button>
+        <button id="copy-html" type="button" disabled>Copy for Word (HTML+MathML)</button>
+        <button id="copy-notion" type="button" disabled>Copy for Notion</button>
+        <button id="download-html" type="button" disabled>Download HTML</button>
+        <button id="download-ooxml" type="button" disabled>Download OOXML</button>
+        <button id="download-docx" type="button" disabled>Download DOCX</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div id="status" class="status" role="status">Ready. Start the local server with <code>node local-server.js</code> in <code>src/word-delivery/</code>.</div>
+      <div id="errors" class="errors" hidden></div>
+      <label>Preview</label>
+      <div id="preview" class="preview" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Clipboard route: paste into <strong>desktop Word</strong> or Notion with Ctrl+V. Add-in route: use the downloaded OOXML with Office.js <code>insertOoxml</code>.</p>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

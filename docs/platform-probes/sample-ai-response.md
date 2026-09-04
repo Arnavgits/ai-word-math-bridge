@@ -1,0 +1,9 @@
+Energy: $E=mc^2$. Integral display:
+$$
+\int_0^1 x^2 \, dx = \frac{1}{3}.
+$$
+Mixed inline \( \alpha + \beta = \mu_x + \frac{p_y}{p_x} - 6 \). Matrix:
+$$
+\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}
+$$
+Inline cases $f(x) = \begin{cases} x^2 & x>0 \\ 0 & x \le 0 \end{cases}$ and bracket display \[ a^2 + b^2 = c^2. \]

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math">
+  <w:body>
+    <w:p><w:r><w:t xml:space="preserve">﻿# Sample AI Math Response</w:t></w:r><w:br/><w:r><w:t xml:space="preserve"></w:t></w:r><w:br/><w:r><w:t xml:space="preserve">The marginal rate can be written inline as </w:t></w:r><m:oMath xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"><m:sSubSup><m:e><m:r><m:t>μ</m:t></m:r></m:e><m:sub><m:r><m:t>x</m:t></m:r></m:sub></m:sSubSup><m:r><m:t>=</m:t></m:r><m:f><m:num><m:sSubSup><m:e><m:r><m:t>p</m:t></m:r></m:e><m:sub><m:r><m:t>y</m:t></m:r></m:sub></m:sSubSup></m:num><m:den><m:sSubSup><m:e><m:r><m:t>p</m:t></m:r></m:e><m:sub><m:r><m:t>x</m:t></m:r></m:sub></m:sSubSup></m:den></m:f><m:r><m:t>−</m:t></m:r><m:r><m:t>6</m:t></m:r></m:oMath><w:r><w:t xml:space="preserve">, which is useful in the budget condition.</w:t></w:r><w:br/><w:r><w:t xml:space="preserve"></w:t></w:r><w:br/><w:r><w:t xml:space="preserve">For a display equation:</w:t></w:r><w:br/><w:r><w:t xml:space="preserve"></w:t></w:r><w:br/><w:r><w:t xml:space="preserve"></w:t></w:r></w:p>
+    <w:p><w:pPr><w:jc w:val="center"/></w:pPr><m:oMath xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"><m:sSubSup><m:e><m:r><m:t>x</m:t></m:r></m:e><m:sub><m:r><m:t>1</m:t></m:r></m:sub><m:sup><m:r><m:t>2</m:t></m:r></m:sup></m:sSubSup><m:r><m:t>+</m:t></m:r><m:sSubSup><m:e><m:r><m:t>y</m:t></m:r></m:e><m:sub><m:r><m:t>2</m:t></m:r></m:sub><m:sup><m:r><m:t>3</m:t></m:r></m:sup></m:sSubSup><m:r><m:t>=</m:t></m:r><m:f><m:num><m:r><m:t>α</m:t></m:r><m:r><m:t>+</m:t></m:r><m:r><m:t>β</m:t></m:r></m:num><m:den><m:r><m:t>μ</m:t></m:r></m:den></m:f></m:oMath></w:p>
+    <w:p><w:r><w:t xml:space="preserve"></w:t></w:r><w:br/><w:r><w:t xml:space="preserve"></w:t></w:r><w:br/><w:r><w:t xml:space="preserve">A small matrix example is:</w:t></w:r><w:br/><w:r><w:t xml:space="preserve"></w:t></w:r><w:br/><w:r><w:t xml:space="preserve"></w:t></w:r></w:p>
+    <w:p><w:pPr><w:jc w:val="center"/></w:pPr><m:oMath xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"><m:r><m:t>[</m:t></m:r><m:m><m:mPr><m:baseJc m:val="centerGroup"/></m:mPr><m:tr><m:tc><m:e><m:r><m:t>1</m:t></m:r></m:e><m:e><m:r><m:t>2</m:t></m:r></m:e></m:tc></m:tr><m:tr><m:tc><m:e><m:r><m:t>3</m:t></m:r></m:e><m:e><m:r><m:t>4</m:t></m:r></m:e></m:tc></m:tr></m:m><m:r><m:t>]</m:t></m:r></m:oMath></w:p>
+    <w:p><w:r><w:t xml:space="preserve"></w:t></w:r><w:br/><w:r><w:t xml:space="preserve"></w:t></w:r></w:p>
+    <w:sectPr>
+      <w:pgSz w:w="12240" w:h="15840"/>
+      <w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/>
+    </w:sectPr>
+  </w:body>
+</w:document>
