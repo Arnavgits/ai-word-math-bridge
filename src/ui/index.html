@@ -7,35 +7,65 @@
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-  <header>
-    <h1>AI Word Math Bridge</h1>
-    <p>Paste an AI response with LaTeX math, convert, then copy into desktop Word.</p>
+  <header class="app-header">
+    <div class="brand-lockup">
+      <div class="brand-mark" aria-hidden="true">&#955;</div>
+      <div>
+        <p class="eyebrow">Conversion workspace</p>
+        <h1>AI Word Math Bridge</h1>
+      </div>
+    </div>
+    <div class="header-meta"><span class="live-dot"></span> Local processing</div>
   </header>
 
   <main>
-    <section class="panel">
-      <label for="input">AI response text</label>
-      <textarea id="input" rows="10" placeholder="Example: The energy relation is $E=mc^2$ where $c$ is the speed of light."></textarea>
+    <div class="workspace-intro">
+      <div>
+        <p class="eyebrow">01 / Source</p>
+        <h2>Turn AI math into editable Word equations.</h2>
+      </div>
+      <p class="intro-copy">Paste a response, preserve the prose, and export a document-ready result without leaving your local workspace.</p>
+    </div>
+
+    <section class="panel source-panel">
+      <div class="panel-heading">
+        <div>
+          <label for="input">AI response text</label>
+          <span class="helper-text">Supports inline <code>$...$</code> and display <code>$$...$$</code> math</span>
+        </div>
+        <span class="step-badge">INPUT</span>
+      </div>
+      <div class="editor-shell">
+        <div class="editor-gutter" aria-hidden="true"><span>01</span><span>02</span><span>03</span><span>04</span><span>05</span><span>06</span><span>07</span><span>08</span></div>
+        <textarea id="input" rows="10" spellcheck="false" placeholder="Example: The energy relation is $E=mc^2$ where $c$ is the speed of light."></textarea>
+      </div>
       <div class="actions">
-        <button id="convert" type="button">Convert</button>
-        <button id="copy-html" type="button" disabled>Copy for Word (HTML+MathML)</button>
+        <button id="convert" class="button-primary" type="button"><span class="button-icon">&#9654;</span> Convert response</button>
+        <div class="action-divider" aria-hidden="true"></div>
+        <button id="copy-html" type="button" disabled>Copy for Word</button>
         <button id="copy-notion" type="button" disabled>Copy for Notion</button>
-        <button id="download-html" type="button" disabled>Download HTML</button>
-        <button id="download-ooxml" type="button" disabled>Download OOXML</button>
-        <button id="download-docx" type="button" disabled>Download DOCX</button>
+        <button id="download-html" type="button" disabled>HTML</button>
+        <button id="download-ooxml" type="button" disabled>OOXML</button>
+        <button id="download-docx" type="button" disabled>DOCX</button>
       </div>
     </section>
 
-    <section class="panel">
-      <div id="status" class="status" role="status">Ready. Start the local server with <code>node local-server.js</code> in <code>src/word-delivery/</code>.</div>
+    <section class="panel output-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">02 / Output</p>
+          <h2>Document preview</h2>
+        </div>
+        <span class="step-badge">LIVE</span>
+      </div>
+      <div id="status" class="status" role="status"><span class="status-indicator"></span> Ready. Convert a response to inspect the Word-ready output.</div>
       <div id="errors" class="errors" hidden></div>
-      <label>Preview</label>
-      <div id="preview" class="preview" aria-live="polite"></div>
+      <div id="preview" class="preview empty-preview" aria-live="polite"><span class="preview-placeholder">Your converted response will appear here.</span></div>
     </section>
   </main>
 
   <footer>
-    <p>Clipboard route: paste into <strong>desktop Word</strong> or Notion with Ctrl+V. Add-in route: use the downloaded OOXML with Office.js <code>insertOoxml</code>.</p>
+    <p><strong>Clipboard route</strong> paste into desktop Word or Notion with <code>Ctrl+V</code> <span class="footer-separator">/</span> <strong>Add-in route</strong> use downloaded OOXML with Office.js <code>insertOoxml</code></p>
   </footer>
 
   <script type="module" src="app.js"></script>
