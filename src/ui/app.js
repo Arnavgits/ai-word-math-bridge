@@ -1,11 +1,13 @@
 import {
   copySegmentsToClipboard,
+  copySegmentsToNotionClipboard,
   extractBodyInner
 } from "/word-delivery/clipboard-from-segments.mjs";
 
 const inputEl = document.getElementById("input");
 const convertBtn = document.getElementById("convert");
 const copyBtn = document.getElementById("copy-html");
+const copyNotionBtn = document.getElementById("copy-notion");
 const downloadHtmlBtn = document.getElementById("download-html");
 const downloadOoxmlBtn = document.getElementById("download-ooxml");
 const downloadDocxBtn = document.getElementById("download-docx");
@@ -22,6 +24,7 @@ inputEl.value =
 convertBtn.addEventListener("click", async () => {
   setStatus("Converting...", "");
   copyBtn.disabled = true;
+  copyNotionBtn.disabled = true;
   downloadHtmlBtn.disabled = true;
   downloadOoxmlBtn.disabled = true;
   downloadDocxBtn.disabled = true;
@@ -50,10 +53,11 @@ convertBtn.addEventListener("click", async () => {
         "error",
       );
     } else {
-      setStatus(`Converted ${mathCount} equation(s). Copy the output or download artifacts.`, "success");
+      setStatus(`Converted ${mathCount} equation(s). Copy for Word or Notion, or download artifacts.`, "success");
     }
 
     copyBtn.disabled = mathCount === 0;
+    copyNotionBtn.disabled = mathCount === 0;
     downloadHtmlBtn.disabled = false;
     downloadOoxmlBtn.disabled = false;
     downloadDocxBtn.disabled = false;
@@ -75,6 +79,17 @@ copyBtn.addEventListener("click", async () => {
     setStatus("Copied Word-optimized HTML+MathML. Paste into desktop Word with Ctrl+V.", "success");
   } catch (err) {
     setStatus(`Clipboard copy failed: ${err.message}`, "error");
+  }
+});
+
+copyNotionBtn.addEventListener("click", async () => {
+  if (!lastResult) return;
+  const segments = lastResult.segments.filter((s) => s.type === "text" || s.latex);
+  try {
+    await copySegmentsToNotionClipboard(segments);
+    setStatus("Copied Notion-ready markdown/HTML. Paste into Notion with Ctrl+V.", "success");
+  } catch (err) {
+    setStatus(`Notion clipboard copy failed: ${err.message}`, "error");
   }
 });
 

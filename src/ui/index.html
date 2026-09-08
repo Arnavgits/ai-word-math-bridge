@@ -42,7 +42,8 @@
       <div class="actions">
         <button id="convert" class="button-primary" type="button"><span class="button-icon">&#9654;</span> Convert response</button>
         <div class="action-divider" aria-hidden="true"></div>
-        <button id="copy-html" type="button" disabled>Copy output</button>
+        <button id="copy-html" type="button" disabled>Copy for Word</button>
+        <button id="copy-notion" type="button" disabled>Copy for Notion</button>
         <button id="download-html" type="button" disabled>HTML</button>
         <button id="download-ooxml" type="button" disabled>OOXML</button>
         <button id="download-docx" type="button" disabled>DOCX</button>
@@ -64,7 +65,7 @@
   </main>
 
   <footer>
-    <p><strong>Clipboard route</strong> paste the copied output into desktop Word with <code>Ctrl+V</code> <span class="footer-separator">/</span> <strong>Add-in route</strong> use downloaded OOXML with Office.js <code>insertOoxml</code></p>
+    <p><strong>Clipboard route</strong> choose the correct paste target for Word or Notion with <code>Ctrl+V</code> <span class="footer-separator">/</span> <strong>Add-in route</strong> use downloaded OOXML with Office.js <code>insertOoxml</code></p>
   </footer>
 
   <script type="module" src="app.js"></script>
