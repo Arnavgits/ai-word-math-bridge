@@ -1,6 +1,12 @@
+import fs from "node:fs";
+import path from "node:path";
 import test from "node:test";
 import assert from "node:assert/strict";
+import { fileURLToPath } from "node:url";
 import handler from "../api/convert.js";
+
+const vercelConfigPath = fileURLToPath(new URL("../vercel.json", import.meta.url));
+const vercelConfig = JSON.parse(fs.readFileSync(vercelConfigPath, "utf8"));
 
 function createResponse() {
   return {
@@ -41,4 +47,12 @@ test("Vercel convert API rejects non-POST requests", async () => {
 
   assert.equal(res.statusCode, 405);
   assert.deepEqual(res.body, { error: "Method not allowed" });
+});
+
+test("Vercel serves UI assets and avoids the static-root misconfiguration", () => {
+  assert.equal(vercelConfig.outputDirectory, undefined);
+  const rewriteTargets = vercelConfig.rewrites.map((rule) => rule.source);
+  assert.ok(rewriteTargets.includes("/"));
+  assert.ok(rewriteTargets.includes("/app.js"));
+  assert.ok(rewriteTargets.includes("/styles.css"));
 });

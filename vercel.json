@@ -1,17 +1,10 @@
 {
-  "outputDirectory": "src/ui",
   "rewrites": [
-    {
-      "source": "/",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/word-delivery/:path*",
-      "destination": "/src/word-delivery/:path*"
-    },
-    {
-      "source": "/addin/:path*",
-      "destination": "/src/word-delivery/addin/:path*"
-    }
+    { "source": "/api/:path*", "destination": "/api/:path*" },
+    { "source": "/word-delivery/:path*", "destination": "/src/word-delivery/:path*" },
+    { "source": "/addin/:path*", "destination": "/src/word-delivery/addin/:path*" },
+    { "source": "/styles.css", "destination": "/src/ui/styles.css" },
+    { "source": "/app.js", "destination": "/src/ui/app.js" },
+    { "source": "/", "destination": "/src/ui/index.html" }
   ]
 }
