@@ -50,7 +50,7 @@ test("Vercel convert API rejects non-POST requests", async () => {
 });
 
 test("Vercel serves UI assets and avoids the static-root misconfiguration", () => {
-  assert.equal(vercelConfig.outputDirectory, undefined);
+  assert.equal(vercelConfig.outputDirectory, "src/ui");
   const rewriteTargets = vercelConfig.rewrites.map((rule) => rule.source);
   assert.ok(rewriteTargets.includes("/"));
   assert.ok(rewriteTargets.includes("/app.js"));
