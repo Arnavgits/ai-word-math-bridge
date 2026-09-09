@@ -42,30 +42,54 @@ export function buildPlainTextFallback(segments) {
 }
 
 /**
- * Build Markdown that Notion can turn into native text blocks while preserving
- * LaTeX delimiters as the most portable equation fallback.
+ * Convert markdown-like source text into plain prose that feels natural in Notion.
+ * This strips heading markers, bullet markers, fenced code markers, and wraps
+ * math in raw equation text instead of code-like LaTeX delimiters.
  * @param {Array<{ type: "text", value: string } | { type: "math", latex: string, display: boolean }>} segments
  */
 export function buildNotionMarkdown(segments) {
   return segments
     .map((seg) => {
-      if (seg.type === "text") return seg.value;
-      return seg.display ? `\n\n$$\n${seg.latex}\n$$\n\n` : `$${seg.latex}$`;
+      if (seg.type === "text") return normalizeNotionText(seg.value);
+      return seg.display ? `\n\n${seg.latex}\n\n` : seg.latex;
     })
     .join("")
     .replace(/\n{4,}/g, "\n\n\n")
+    .replace(/\n{3,}/g, "\n\n")
     .trim();
 }
 
 /**
- * Build semantic HTML for Notion paste. Notion tends to keep headings, lists,
- * quotes, code blocks, and inline emphasis from HTML more reliably than from a
- * visual preview copy, while the plain text clipboard fallback remains Markdown.
+ * Build a simple HTML format aimed at Notion’s normal text editor. The goal is to
+ * preserve the same content flow without injecting markdown or code-like wrappers.
  * @param {Array<{ type: "text", value: string } | { type: "math", latex: string, display: boolean }>} segments
  */
 export function buildNotionClipboardHtml(segments) {
-  const markdown = buildNotionMarkdown(segments);
-  return `<!DOCTYPE html><html><head><meta charset="utf-8"/></head><body>${markdownToHtml(markdown)}</body></html>`;
+  const body = segments
+    .map((seg) => {
+      if (seg.type === "text") {
+        return escapeHtml(normalizeNotionText(seg.value)).replace(/\n/g, "<br/>");
+      }
+
+      const text = escapeHtml(seg.latex);
+      return seg.display ? `<p>${text}</p>` : `<span>${text}</span>`;
+    })
+    .join("");
+
+  return `<!DOCTYPE html><html><head><meta charset="utf-8"/></head><body>${body}</body></html>`;
+}
+
+function normalizeNotionText(text) {
+  return text
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/^\s*[-*]\s+/gm, "• ")
+    .replace(/^\s*\d+[.)]\s+/gm, "• ")
+    .replace(/```[A-Za-z0-9_-]*\n?/g, "")
+    .replace(/```/g, "")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/^>\s?/gm, "")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
 }
 
 /**

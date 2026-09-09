@@ -41,15 +41,17 @@ test("converts matrices to MathML and OMML", () => {
   assert.match(latexToOmml({ latex, display: true }), /<m:m>/);
 });
 
-test("builds Notion clipboard output from markdown-like AI responses", () => {
+test("builds a simpler Notion clipboard output that reads like editable text", () => {
   const segments = convertAiResponse("# Notes\n\n- Energy is $E=mc^2$.\n\n```js\nconst x = 1;\n```\n\n$$\\frac{a}{b}$$");
   const markdown = buildNotionMarkdown(segments);
   const html = buildNotionClipboardHtml(segments);
 
-  assert.match(markdown, /^# Notes/);
-  assert.match(markdown, /\$E=mc\^2\$/);
-  assert.match(markdown, /\$\$\n\\frac\{a\}\{b\}\n\$\$/);
-  assert.match(html, /<h1>Notes<\/h1>/);
-  assert.match(html, /<ul><li>Energy is <span data-equation="inline">E=mc\^2<\/span>\.<\/li><\/ul>/);
-  assert.match(html, /<pre><code data-language="js">const x = 1;<\/code><\/pre>/);
+  assert.match(markdown, /^Notes/);
+  assert.doesNotMatch(markdown, /^#/m);
+  assert.doesNotMatch(markdown, /```|\$\$|\$E=mc\^2\$/);
+  assert.match(markdown, /E=mc\^2/);
+  assert.match(markdown, /\\frac\{a\}\{b\}/);
+  assert.doesNotMatch(html, /data-equation|<pre>|<code/);
+  assert.match(html, /Notes/);
+  assert.match(html, /Energy is<span>E=mc\^2<\/span>\./);
 });
