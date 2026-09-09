@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Convert AI math responses into Word-ingestable MathML HTML and native OMML DOCX output.",
   "scripts": {
-    "build": "node --check api/convert.js",
+    "build": "node scripts/build-public.mjs && node --check api/convert.js",
     "start": "node src/word-delivery/local-server.js",
     "convert": "node src/cli.mjs",
     "fixture": "node src/cli.mjs --input samples/sample-ai-response.md --out dist/sample",

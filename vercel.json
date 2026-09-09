@@ -1,11 +1,4 @@
 {
-  "outputDirectory": "src/ui",
-  "rewrites": [
-    { "source": "/api/:path*", "destination": "/api/:path*" },
-    { "source": "/word-delivery/:path*", "destination": "/src/word-delivery/:path*" },
-    { "source": "/addin/:path*", "destination": "/src/word-delivery/addin/:path*" },
-    { "source": "/styles.css", "destination": "/styles.css" },
-    { "source": "/app.js", "destination": "/app.js" },
-    { "source": "/", "destination": "/index.html" }
-  ]
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "outputDirectory": "public"
 }

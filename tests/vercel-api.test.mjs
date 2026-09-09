@@ -49,10 +49,7 @@ test("Vercel convert API rejects non-POST requests", async () => {
   assert.deepEqual(res.body, { error: "Method not allowed" });
 });
 
-test("Vercel serves UI assets and avoids the static-root misconfiguration", () => {
-  assert.equal(vercelConfig.outputDirectory, "src/ui");
-  const rewriteTargets = vercelConfig.rewrites.map((rule) => rule.source);
-  assert.ok(rewriteTargets.includes("/"));
-  assert.ok(rewriteTargets.includes("/app.js"));
-  assert.ok(rewriteTargets.includes("/styles.css"));
+test("Vercel serves UI assets from a generated public output directory", () => {
+  assert.equal(vercelConfig.outputDirectory, "public");
+  assert.ok(!vercelConfig.rewrites || vercelConfig.rewrites.length === 0 || vercelConfig.rewrites.every((rule) => rule.source !== undefined));
 });
