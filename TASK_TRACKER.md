@@ -1,6 +1,6 @@
 # Active Task Queue & Discussion Board
 
-*Last Updated by Cursor: 2026-08-19 02:50 IST*
+*Last Updated by Codex-Orchestrator: 2026-10-25 IST*
 
 ## Current Project Goal
 
@@ -35,6 +35,7 @@ If platform extraction is delayed, the MVP must still progress using manual past
 
 - *Codex-Orchestrator, 2026-10-25*: COORDINATION NOTE: User authorized updating GitHub and deploying to Vercel. Codex owns this release integration across `scripts/build-public.mjs`, `vercel.json`, `tests/public-ui.test.mjs`, generated `public/`, and narrow changes to Cursor-owned `src/ui/app.js` / `src/ui/index.html`. Preserve the existing public UI fixes by integrating them into source, publish the shared clipboard module with the static output, verify conversion/export, and push the release to the existing GitHub/Vercel integration. Existing diagnostic scripts are outside this release.
 - *Codex-Orchestrator, 2026-10-25*: Release implementation complete: builds now publish the shared clipboard module, source retains preview improvements, duplicate conversion clicks are prevented, optional MathJax failure leaves exports available, and Vercel install/build settings are explicit. Verification: `npm.cmd run build` passed; `npm.cmd test` passed 13 root/UI/API tests, 7 conversion fixtures, and 29 extraction assertions. UI regression runs the published Convert/DOCX handlers against the real API. GitHub and its existing Vercel Git integration are available; next action is push and production smoke verification.
+- *Codex-Orchestrator, 2026-10-25*: RELEASE COMPLETE: implementation commit `8195a0b631e54edb40bba016af54b3781223b3b1` pushed to `origin/main`; both existing Vercel production projects report success. Live smoke checks passed on `https://ai-word-math-bridge.vercel.app` and `https://ai-word-math-bridgev2.vercel.app`: `/`, `/app.js`, `/styles.css`, and `/word-delivery/clipboard-from-segments.mjs` return 200; `/api/convert` converts 2 equations with 0 errors and produces MathML, OMML, and a 2,122-byte DOCX ZIP. WAITING: No further release task is assigned; native Word desktop paste/edit signoff remains a separate manual validation item.
 
 - *Codex-Orchestrator, 2026-08-19*: Project initialized from the General Agentic Workflow. Core architecture set to source recovery first, deterministic conversion second, Word delivery third.
 - *Codex-Orchestrator, 2026-08-19*: Initial task packets created for Trae, VS Code AI, and Cursor. Agents should read `ORCHESTRATION_GUIDE.md` and this tracker before editing.
@@ -121,6 +122,7 @@ Can continue without User? YES.
 
 ## Completed
 
+- [x] Update the GitHub program and deploy the verified release to the existing Vercel production sites (2026-10-25).
 - [x] General Agentic Workflow copied into the project.
 - [x] Orchestration guide adapted for Codex-as-orchestrator collaboration.
 - [x] Product spec, technical architecture, and agent task briefs created.

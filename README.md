@@ -2,6 +2,8 @@
 
 AI Word Math Bridge converts math-containing AI responses into Word-facing output.
 
+[Open the live app](https://ai-word-math-bridge.vercel.app)
+
 Current MVP:
 
 ```text
