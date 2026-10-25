@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>AI Word Math Bridge</title>
   <link rel="stylesheet" href="/styles.css"/>
+  <!-- MathJax 3: renders the <math> elements in the preview panel correctly -->
+  <script>
+    window.MathJax = {
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] },
+      startup:  { typeset: false }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js" async></script>
 </head>
 <body>
   <header class="app-header">
@@ -15,7 +23,7 @@
         <h1>AI Word Math Bridge</h1>
       </div>
     </div>
-    <div class="header-meta"><span class="live-dot"></span> Local processing</div>
+    <div class="header-meta"><span class="live-dot"></span> Word-ready export</div>
   </header>
 
   <main>
@@ -24,7 +32,7 @@
         <p class="eyebrow">01 / Source</p>
         <h2>Turn AI math into editable Word equations.</h2>
       </div>
-      <p class="intro-copy">Paste a response, preserve the prose, and export a document-ready result without leaving your local workspace.</p>
+      <p class="intro-copy">Paste a response, preserve the prose, and export a document-ready result with an editable Word document.</p>
     </div>
 
     <section class="panel source-panel">

@@ -33,6 +33,9 @@ If platform extraction is delayed, the MVP must still progress using manual past
 
 ## Discussion Log
 
+- *Codex-Orchestrator, 2026-10-25*: COORDINATION NOTE: User authorized updating GitHub and deploying to Vercel. Codex owns this release integration across `scripts/build-public.mjs`, `vercel.json`, `tests/public-ui.test.mjs`, generated `public/`, and narrow changes to Cursor-owned `src/ui/app.js` / `src/ui/index.html`. Preserve the existing public UI fixes by integrating them into source, publish the shared clipboard module with the static output, verify conversion/export, and push the release to the existing GitHub/Vercel integration. Existing diagnostic scripts are outside this release.
+- *Codex-Orchestrator, 2026-10-25*: Release implementation complete: builds now publish the shared clipboard module, source retains preview improvements, duplicate conversion clicks are prevented, optional MathJax failure leaves exports available, and Vercel install/build settings are explicit. Verification: `npm.cmd run build` passed; `npm.cmd test` passed 13 root/UI/API tests, 7 conversion fixtures, and 29 extraction assertions. UI regression runs the published Convert/DOCX handlers against the real API. GitHub and its existing Vercel Git integration are available; next action is push and production smoke verification.
+
 - *Codex-Orchestrator, 2026-08-19*: Project initialized from the General Agentic Workflow. Core architecture set to source recovery first, deterministic conversion second, Word delivery third.
 - *Codex-Orchestrator, 2026-08-19*: Initial task packets created for Trae, VS Code AI, and Cursor. Agents should read `ORCHESTRATION_GUIDE.md` and this tracker before editing.
 - *Codex-Orchestrator, 2026-08-19*: Continuous Build Mode activated. Agents must continue until the MVP is accepted, update this tracker after each task, and escalate only system-level or genuinely important issues to the User.

@@ -5,7 +5,6 @@ const root = process.cwd();
 const srcUi = path.join(root, "src", "ui");
 const publicDir = path.join(root, "public");
 
-fs.rmSync(publicDir, { recursive: true, force: true });
 fs.mkdirSync(publicDir, { recursive: true });
 
 for (const entry of fs.readdirSync(srcUi, { withFileTypes: true })) {
@@ -19,13 +18,16 @@ for (const entry of fs.readdirSync(srcUi, { withFileTypes: true })) {
   }
 }
 
-const appJs = path.join(publicDir, "app.js");
-const indexPath = path.join(publicDir, "index.html");
+// The browser imports this module at runtime, so it must be deployed alongside
+// app.js. Keep the canonical implementation shared with local Word delivery.
+const clipboardDir = path.join(publicDir, "word-delivery");
+fs.mkdirSync(clipboardDir, { recursive: true });
+fs.copyFileSync(
+  path.join(root, "src", "word-delivery", "clipboard-from-segments.mjs"),
+  path.join(clipboardDir, "clipboard-from-segments.mjs")
+);
 
-if (fs.existsSync(appJs)) {
-  const appText = fs.readFileSync(appJs, "utf8");
-  fs.writeFileSync(appJs, appText.replace(/\"\/word-delivery\/clipboard-from-segments\.mjs\"/g, '"/word-delivery/clipboard-from-segments.mjs"'));
-}
+const indexPath = path.join(publicDir, "index.html");
 
 if (fs.existsSync(indexPath)) {
   const html = fs.readFileSync(indexPath, "utf8");

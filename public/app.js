@@ -4,25 +4,30 @@ import {
   extractBodyInner
 } from "/word-delivery/clipboard-from-segments.mjs";
 
-const inputEl = document.getElementById("input");
-const convertBtn = document.getElementById("convert");
-const copyBtn = document.getElementById("copy-html");
-const copyNotionBtn = document.getElementById("copy-notion");
-const downloadHtmlBtn = document.getElementById("download-html");
+const inputEl        = document.getElementById("input");
+const convertBtn     = document.getElementById("convert");
+const copyBtn        = document.getElementById("copy-html");
+const copyNotionBtn  = document.getElementById("copy-notion");
+const downloadHtmlBtn  = document.getElementById("download-html");
 const downloadOoxmlBtn = document.getElementById("download-ooxml");
-const downloadDocxBtn = document.getElementById("download-docx");
-const statusEl = document.getElementById("status");
-const errorsEl = document.getElementById("errors");
-const previewEl = document.getElementById("preview");
+const downloadDocxBtn  = document.getElementById("download-docx");
+const statusEl       = document.getElementById("status");
+const errorsEl       = document.getElementById("errors");
+const previewEl      = document.getElementById("preview");
 
 /** @type {object | null} */
 let lastResult = null;
 
+// Pre-populate textarea with a demo equation
 inputEl.value =
   "The quadratic formula is $$x = \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}$$ and for energy we write $E=mc^2$.";
 
+// ─── Convert button ───────────────────────────────────────────────────────────
+
 convertBtn.addEventListener("click", async () => {
-  setStatus("Converting...", "");
+  convertBtn.disabled = true;
+  lastResult = null;
+  setStatus("Converting…", "");
   copyBtn.disabled = true;
   copyNotionBtn.disabled = true;
   downloadHtmlBtn.disabled = true;
@@ -38,12 +43,24 @@ convertBtn.addEventListener("click", async () => {
     });
 
     if (!res.ok) {
-      const err = await res.json();
+      const err = await res.json().catch(() => ({ error: `HTTP ${res.status}` }));
       throw new Error(err.error ?? `HTTP ${res.status}`);
     }
 
     lastResult = await res.json();
+    window.MathJax?.typesetClear?.([previewEl]);
     previewEl.innerHTML = extractBodyInner(lastResult.html);
+    previewEl.classList.remove("empty-preview");
+
+    // Ask MathJax to typeset the newly-injected <math> elements so they render
+    // with proper glyphs (∂, ℝ, etc.) instead of boxes or raw text.
+    try {
+      await window.MathJax?.startup?.promise;
+      await window.MathJax?.typesetPromise?.([previewEl]);
+    } catch (error) {
+      console.warn("Preview typesetting unavailable; using native MathML.", error);
+    }
+
     renderErrors(lastResult.errors);
 
     const { mathCount, errorCount } = lastResult.stats;
@@ -53,7 +70,10 @@ convertBtn.addEventListener("click", async () => {
         "error",
       );
     } else {
-      setStatus(`Converted ${mathCount} equation(s). Copy for Word or Notion, or download artifacts.`, "success");
+      setStatus(
+        `Converted ${mathCount} equation(s). Copy for Word or Notion, or download artifacts.`,
+        "success",
+      );
     }
 
     copyBtn.disabled = mathCount === 0;
@@ -64,12 +84,14 @@ convertBtn.addEventListener("click", async () => {
   } catch (err) {
     lastResult = null;
     previewEl.innerHTML = "";
-    setStatus(
-      `Conversion failed: ${err.message}. Run: node src/word-delivery/local-server.js`,
-      "error",
-    );
+    previewEl.classList.add("empty-preview");
+    setStatus(`Conversion failed: ${err.message}`, "error");
+  } finally {
+    convertBtn.disabled = false;
   }
 });
+
+// ─── Copy for Word ────────────────────────────────────────────────────────────
 
 copyBtn.addEventListener("click", async () => {
   if (!lastResult) return;
@@ -82,6 +104,8 @@ copyBtn.addEventListener("click", async () => {
   }
 });
 
+// ─── Copy for Notion ─────────────────────────────────────────────────────────
+
 copyNotionBtn.addEventListener("click", async () => {
   if (!lastResult) return;
   const segments = lastResult.segments.filter((s) => s.type === "text" || s.latex);
@@ -93,15 +117,21 @@ copyNotionBtn.addEventListener("click", async () => {
   }
 });
 
+// ─── Download HTML ────────────────────────────────────────────────────────────
+
 downloadHtmlBtn.addEventListener("click", () => {
   if (!lastResult) return;
   downloadFile("word-ready.html", lastResult.html, "text/html");
 });
 
+// ─── Download OOXML ───────────────────────────────────────────────────────────
+
 downloadOoxmlBtn.addEventListener("click", () => {
   if (!lastResult) return;
   downloadFile("word-ready.document.xml", lastResult.ooxml, "application/xml");
 });
+
+// ─── Download DOCX ────────────────────────────────────────────────────────────
 
 downloadDocxBtn.addEventListener("click", () => {
   if (!lastResult?.docxBase64) return;
@@ -116,6 +146,8 @@ downloadDocxBtn.addEventListener("click", () => {
   a.click();
   URL.revokeObjectURL(url);
 });
+
+// ─── Utilities ────────────────────────────────────────────────────────────────
 
 function renderErrors(errors) {
   if (!errors?.length) {
@@ -145,5 +177,5 @@ function downloadFile(name, content, mime) {
 }
 
 function escapeHtml(text) {
-  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }

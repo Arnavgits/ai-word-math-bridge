@@ -34,18 +34,20 @@ Open `dist/sample.docx` in Microsoft Word to inspect native equation behavior. O
 
 ## Public Deploy: Vercel
 
-This project includes a Vercel serverless endpoint at `api/convert.js` and static UI rewrites in `vercel.json`.
+This project includes a Vercel serverless endpoint at `api/convert.js` and a static UI built from `src/ui/` into `public/`.
 
 Deploy settings:
 
 ```text
 Framework preset: Other
-Install command: npm install
-Build command: leave empty
-Output directory: leave empty
+Install command: npm ci
+Build command: npm run build
+Output directory: public
 ```
 
-The root `postinstall` script installs the nested MathJax conversion dependency. Vercel serves the UI at `/` and the converter at `/api/convert`.
+These settings are checked into `vercel.json`. The root dependency install supplies MathJax for the conversion pipeline. Vercel serves the UI at `/` and the converter at `/api/convert`. The build also publishes the shared clipboard module used by the browser.
+
+Edit the UI in `src/ui/` and run `npm.cmd run build` to update the generated `public/` assets. Run `npm.cmd test` before pushing to GitHub; the connected Vercel project deploys changes to the production branch.
 
 ## Convert Your Own AI Response
 
